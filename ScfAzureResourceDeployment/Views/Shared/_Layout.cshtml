@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Azure Resource Deployment Portal</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+
+</head>
+
+<body class="metro">
+    <div class="inner">
+
+        <div class="app-bar v-align-middle align-center" data-role="appbar">
+            <span class="mif-earth2 icon mif-3x padding10 v-align-top-text">  Azure Resource Deployment Portal</span>
+        </div>
+
+        <div>
+            @RenderBody();
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

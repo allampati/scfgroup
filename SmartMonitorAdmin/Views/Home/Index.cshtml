@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="main-content clear-float">
+    <div class="tile-area no-padding">
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">My Account</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "Account")">
+                            <span class="mif-organization icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Manage your account</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">User Management</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "UserManagement")">
+                            <span class="mif-users icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Manage user groups and users</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">Device Management</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "SmartDevice")">
+                            <span class="mif-mobile icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Manage your smart devices</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">GPS Tracking</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "GpsTracking")">
+                            <span class="mif-location icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Track your moving assets with GPS</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">Device Monitoring</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "Parameter")">
+                            <span class="mif-feed icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Setup device parameters for monitoring</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">Communications</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "Communication")">
+                            <span class="mif-contacts-dialer icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Communicate with connected devices</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">Settings</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "GeneralSettings")">
+                            <span class="mif-cogs icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Setup global settings for users and devices</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">Images</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "Image")">
+                            <span class="mif-file-image icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Add your own images to use with project</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,134 @@
+﻿@using System.Web.Mvc.Html
+@using CheckBoxList.Mvc.Html
+
+@model SmartMonitorAdmin.Models.Communication
+
+@{ 
+    ViewBag.Title = "Communication";
+
+}
+<script type="text/javascript" src="~/Scripts/jquery.js"></script>
+<div class="example" data-text="Devices">
+    <table style="border-collapse: separate; border-spacing: 10px;">
+        <tr>
+            <td width="20%">
+                <label>Select devices to communicate:</label>
+            </td>
+            <td width="70%">
+                <select id="comboDevices" multiple="multiple">
+                    <option>(all)</option>
+                    @foreach (var item in Model.SelectedDevices)
+                    {
+                        var sel =( item.Selected ? "selected" : "");
+
+                        <option value='@item.Id' @sel>@item.Name</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button class="button primary small-button" id="btnSaveSelection">Save Selection</button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<hr/>
+<table style="border-collapse: separate; border-spacing: 10px;">
+    <tr>
+        <td height="100px" width="50%">
+            <div class="example" data-text="Push Notifications" style="height:100%">
+                <label>Send Message To Selected Devices:</label>
+                <div class="input-control textarea" data-role="input" data-text-auto-resize="true">
+                    <textarea id="textMsg"></textarea>
+                </div>
+                <button class="button primary small-button" id="btnSend">Send</button>
+            </div>
+        </td>
+        <td height="100px" width="50%">
+            <div class="example" data-text="Parameters" style="height:100%">
+                <label>Send Parameters To Selected Devices:</label>
+
+                <button class="button primary small-button" id="btnSendParameters">Send</button>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#comboDevices").dropdownchecklist({ firstItemChecksAll: true, maxDropHeight: 100 });
+
+        $("#btnSaveSelection").click(function (e) {
+            e.preventDefault();
+
+            var selecteditems = [];
+            var table = document.getElementById("comboDevices");
+            var options = table.getElementsByTagName("option");
+            for (var i = 0; i < options.length; i++)
+            {
+                var option = options[i];
+
+                var item = {};
+                item["Id"] = option.value;
+                item["Selected"] = option.selected ? true : false;
+                selecteditems.push(item);
+            }
+
+            saveSelectedDevices(selecteditems);
+        });
+
+        $("#btnSend").click(function (e) {
+            e.preventDefault();
+
+            var message = document.getElementById('textMsg').value;
+
+            var selecteditems = [];
+            var table = document.getElementById("comboDevices");
+            var options = table.getElementsByTagName("option");
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+
+                if (option.selected) {
+                    selecteditems.push(option.value);
+                }
+            }
+
+            sendMessageToDevices(selecteditems, message);
+        });
+    });
+
+    function saveSelectedDevices(selecteditems) {
+
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Communication/SaveSelected",
+                data: { "data": JSON.stringify(selecteditems) },
+                dataType: "json",
+                success: function (result) {
+                },
+                error: function (ex) {
+                    // handle error
+                }
+            }); //ajax
+    }
+
+    function sendMessageToDevices(selecteditems, message) {
+
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Communication/SendMessage",
+                data: { "message": message, "data": JSON.stringify(selecteditems) },
+                dataType: "json",
+                success: function (result) {
+                },
+                error: function (ex) {
+                    // handle error
+                }
+            }); //ajax
+    }
+</script>

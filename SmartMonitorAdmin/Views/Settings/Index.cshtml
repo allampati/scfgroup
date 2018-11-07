@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Settings";
+}
+
+
+<div class="tabcontrol" id="tabsettings">
+    <ul class="tabs">
+        @*<li><a href="#frame_general">General</a></li>*@
+        <li><a href="#frame_images">Images</a></li>
+    </ul>
+    <div class="frames">
+        <div class="frame bg-white" id="frame_images">@Html.Action("Index", "Image")</div>
+
+        @*<div class="frame bg-white" id="frame_general">@Html.Action("Index", "GeneralSettings")</div>*@
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $("#tabsettings").tabcontrol();
+    });
+
+</script>

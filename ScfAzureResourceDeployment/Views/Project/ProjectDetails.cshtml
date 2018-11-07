@@ -1,0 +1,92 @@
+﻿@model IEnumerable<ScfAzureResourceDeployment.Models.Project>
+
+@{ 
+    ViewBag.Title = "Project Details";
+}
+
+<h2 style="padding-left:20px; padding-bottom:10px">Projects</h2>
+
+<div class="padding10" style="height:400px;overflow:auto">
+    <table class="table striped hovered border bordered" style="color:black">
+        <thead>
+            <tr>
+                <th class="sortable-column">Name</th>
+                <th class="sortable-column">Description</th>
+                <th class="sortable-column">Created Date</th>
+                <th class="sortable-column">Last Updated Date</th>
+                <th class="sortable-column">Resource Groups</th>
+                <th class="">Details</th>
+                <th class="">Edit</th>
+                <th class="">Delete</th>
+            </tr>
+        </thead>
+        @foreach (var project in Model)
+        {
+            <tr>
+                <td>@project.Name</td>
+                <td>@project.Description</td>
+                <td>@project.CreatedDate</td>
+                <td>@project.LastUpdatedDate</td>
+                @if (project.ResourceGroups != null)
+                {
+                    var jsonData = Html.Raw(Json.Encode(project));
+                    var names = "";
+                    foreach(var group in project.ResourceGroups)
+                    {
+                        names += group.Name;
+                        names += ", ";
+                    }
+                    <td>@names</td>
+                    <td><a href="javascript:openDetailsDialog(@jsonData);"><i class='mif-menu'></i></a></td>
+                }
+                else
+                {
+                    <td>None</td>
+                    <td><a href="javascript:openDetailsDialog(null);"><i class='mif-menu'></i></a></td>
+                }
+                   
+                @if (project != null)
+                {
+                    var jsonData = Html.Raw(Json.Encode(project));
+
+                    <td><a href="javascript:openEditDialog(@jsonData);"><i class='mif-pencil fg-green'></i></a></td>
+                    <td><a href="javascript:openDeleteDialog(@jsonData);"><i class='mif-cancel fg-red'></i></a></td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+<div data-role="dialog" id="dialog" data-close-button="true" data-with="600" style="padding-left:10px;padding-right:10px">
+    <h2>Project Details</h2>
+    <form>
+        <div id="project_tree" class="treeview" data-role="treeview">
+            <ul>
+                <li class="node active">
+                    <span class="leaf"><span class="mif-folder"></span> Project Information</span>
+                    <span class="node-toggle"></span>
+                    <ul>
+                        <li><span class="leaf"><span class="icon mif-file-empty"></span> Hello</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </form>
+</div>
+
+<script>
+    function openDetailsDialog(projectInfo) {
+        debugger;
+
+        var tree = document.getElementById("project_tree");
+
+        if (projectInfo == null) {
+
+            return;
+        }
+
+
+        metroDialog.open('#dialog');
+    }
+</script>

@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Smart Monitor Administration</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+            display: table;
+        }
+
+        body {
+            width: 100%;
+            display: table-cell;
+            font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 12px;
+        }
+
+        html, body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        table, th, td {
+            border: 1px solid groove;
+        }
+    </style>
+
+</head>
+<body class="metro">
+    <div class="inner">
+        <div class="row" style="background-color:cornflowerblue">
+            <div class="col-lg-12 fg-white v-align-middle align-center">
+                <span class="mif-earth2 icon mif-3x padding10 v-align-top-text">  Smart Monitor Admin Dashboard</span>                
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+         <div class="table-responsive col-lg-12">
+            <table style="width:100%">
+                <tr>
+                    <td valign="top" align="left" style="width:20%;padding-right:5px">
+                        <ul class="sidebar" style="background-color:cornflowerblue">
+                            <li>
+                                <a href="@Url.Action("Index", "Home")">
+                                    <span class="mif-home icon"></span>
+                                    <span class="title">Home</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Account")">
+                                    <span class="mif-organization icon"></span>
+                                    <span class="title">My Account</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "UserManagement")">
+                                    <span class="mif-users icon"></span>
+                                    <span class="title">User Management</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "SmartDevice")">
+                                    <span class="mif-mobile icon"></span>
+                                    <span class="title">Device Management</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "GpsTracking")">
+                                    <span class="mif-location icon"></span>
+                                    <span class="title">GPS Tracking</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Parameter")">
+                                    <span class="mif-feed icon"></span>
+                                    <span class="title">Device Monitoring</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Communication")">
+                                    <span class="mif-contacts-dialer icon"></span>
+                                    <span class="title">Communication</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "GeneralSettings")">
+                                    <span class="mif-cogs icon"></span>
+                                    <span class="title">Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Image")">
+                                    <span class="mif-file-image icon"></span>
+                                    <span class="title">Images</span>
+                                </a>
+                            </li>
+ 
+                        </ul>
+                    </td>
+                    <td valign="top" align="left" style="padding-left:5px">
+                        @RenderBody()
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </div>  
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

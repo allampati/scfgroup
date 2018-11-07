@@ -1,0 +1,164 @@
+﻿@model IEnumerable<SmartMonitorAdmin.Models.Alarm>
+
+@{
+    var parameterId = ViewData["parameterId"];
+    var listAlarms = new List<SmartMonitorAdmin.Models.Alarm>();
+    if (Model != null)
+    {
+        foreach (var d in Model)
+        {
+            listAlarms.Add(d);
+        }
+    }
+}
+
+<div>
+    <table style="border-collapse: separate; border-spacing: 10px;">
+        <tr>
+            <td>
+                <button class="button primary" id="btnAdd">Add New Alarm</button>
+            </td>
+            <td>
+                <button class="button primary" id="btnSave">Save Alarms</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<table id="tableAlarms" class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValueType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Operator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th></th>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var alarms = @Html.Raw(Json.Encode(listAlarms));
+        var parameterId = @Html.Raw(Json.Encode(parameterId));
+        var rowId = 1;
+        for (var i = 0; i < alarms.length; i++)
+        {
+            var alarm = alarms[i];
+            AddRow(rowId, alarm.Value, alarm.ValueType, alarm.Operator, alarm.Type, false);
+            rowId++;
+        }
+
+        $("#btnAdd").click(function () {
+            var value = $('#textValue').val();
+            var valueType = $('#selectValueType').val();
+            var operator = $('#selectOperator').val();
+            var alarmType = $('#selectType').val();
+            AddRow(rowId, value, valueType, operator, alarmType, true);
+            rowId++;
+        });
+
+        $("#btnSave").click(function (e) {
+            e.preventDefault();
+           var alarms = [];
+
+           var table = document.getElementById("tableAlarms");
+           for (var i = 1; i < rowId; i++) {
+               var item = {}
+               item["Id"] = i;
+               item["Value"] = document.getElementById('text' + i).value;
+               item["ValueType"] = document.getElementById('comboValType' + i).value;
+               item["Operator"] = document.getElementById('comboOperator' + i).value;
+               item["Type"] = document.getElementById('comboType' + i).value;
+
+               alarms.push(item);
+           }
+
+
+            saveAlarms(parameterId, alarms);
+
+        }); //btnSave
+
+        function AddRow(rowid, value, valueType, operator, alarmType, edit) {
+            var rowdata = "<tr id='row" + rowid + "'>";
+            rowdata += "<td><input type='text' id='text" + rowid + "'value='" + value + "' data-index='" + rowid + "' class='text' disabled></input></td>";
+            rowdata += "<td><select id='comboValType" + rowid + "' class='combo' data-index='" + rowid + "' disabled> <option val='Byte'>Byte</option> <option val='Short'>Short</option> <option val='Integer'>Integer</option> <option val='Long'>Long</option> <option val='Float'>Float</option> <option val='Double'>Double</option> <option val='DateTime'>DateTime</option> <option val='String'>String</option></select></td>";
+            rowdata += "<td><select id='comboOperator" + rowid + "' class='combo' data-index='" + rowid + "' disabled> <option val='EqualTo'>EqualTo</option> <option val='LessThan'>LessThan</option> <option val='LessThanEqualTo'>LessThanEqualTo</option> <option val='GreatThan'>GreatThan</option> <option val='GreaterThanEqualTo'>GreaterThanEqualTo</option> <option val='Contains'>Contains</option></select></td>";
+            rowdata += "<td><select id='comboType" + rowid + "' class='combo' data-index='" + rowid + "' disabled> <option val='Normal'>Normal</option> <option val='Warning'>Warning</option> <option val='Error'>Error</option> <option val='Critical'>Critical</option></select></td>";
+            rowdata += "<td><a class='trigger-edit' data-title='Edit' id='editLink" + rowid + "' href='#' onclick='onEditClick(" + rowid + ");return false'><i class='mif-pencil'></i></a><a class='trigger-edit' data-title='Save' id='saveLink" + rowid + "' href='#' hidden onclick='onSaveClick(" + rowid + ");return false'><i class='mif-floppy-disk'></i></a><a class='trigger-delete' data-title='Delete' id='deleteLink'" + rowid + "' href='#' onclick='onDeleteClick(" + rowid + ");return false'><i class='mif-not'></i></a></td>";
+            rowdata += "</tr>";
+            $('#tableAlarms').append(rowdata);
+
+            if (edit) {
+                onEditClick(rowid);
+            }
+        }
+    }); //DocumentReady
+
+
+    function onEditClick(rowid) {
+        var editLink = document.getElementById('editLink' + rowid);
+        editLink.hidden = true;
+
+        var saveLink = document.getElementById('saveLink' + rowid);
+        saveLink.hidden = false;
+
+        var textBox = document.getElementById('text' + rowid);
+        textBox.disabled = false;
+        var comboValType = document.getElementById('comboValType' + rowid);
+        comboValType.disabled = false;
+        var comboOperator = document.getElementById('comboOperator' + rowid);
+        comboOperator.disabled = false;
+        var comboType = document.getElementById('comboType' + rowid);
+        comboType.disabled = false;
+    }
+
+    function onSaveClick(rowid) {
+        var editLink = document.getElementById('editLink' + rowid);
+        editLink.hidden = false;
+
+        var saveLink = document.getElementById('saveLink' + rowid);
+        saveLink.hidden = true;
+
+        var textBox = document.getElementById('text' + rowid);
+        textBox.disabled = true;
+        var comboValType = document.getElementById('comboValType' + rowid);
+        comboValType.disabled = true;
+        var comboOperator = document.getElementById('comboOperator' + rowid);
+        comboOperator.disabled = true;
+        var comboType = document.getElementById('comboType' + rowid);
+        comboType.disabled = true;
+    }
+
+    function onDeleteClick(rowid) {
+        var result = confirm("Are you sure you want to delete this alarm?");
+        if (result) {
+            var row = document.getElementById('row' + rowid);
+            row.parentNode.removeChild(row);
+        }
+    }
+
+    function saveAlarms(parameterId, alarmdata)
+    {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Parameter/SaveAlarms",
+                data: { "id": parameterId, "alarms": alarmdata },
+                dataType: "json",
+                success: function (result) {
+                },
+                error: function (ex) {
+                    // handle error
+                }
+        }); //ajax
+    }
+
+</script>
+

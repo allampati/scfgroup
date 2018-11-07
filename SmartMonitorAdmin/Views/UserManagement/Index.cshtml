@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "User Management";
+}
+
+<div class="main-content clear-float">
+    <div class="tile-area no-padding">
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">User Groups</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "UserGroup")">
+                            <span class="mif-users icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Manage User Groups</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile bg-white tile-big-x" data-role="tile">
+            <div class="tile-content">
+                <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                    <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">Users</span></div>
+                    <div class="content fg-dark clear-float">
+                        <a href="@Url.Action("Index", "User")">
+                            <span class="mif-user icon mif-4x"></span>
+                            <span style="font-size:medium;font-weight:bold;vertical-align:text-top">Manage Users</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

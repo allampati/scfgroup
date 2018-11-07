@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ScfAzureResourceDeployment.Models.Project>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="main-content clear-float">
+    <div class="tile-area no-padding">
+        @if (Model != null)
+        {
+            foreach (var project in Model)
+            {
+            <div class="tile bg-white tile-big-x" data-role="tile">
+                <div class="tile-content">
+                    <div class="panel" style="height: 100%;vertical-align:middle;align-content:center;border:ridge">
+                        <div class="heading bg-darkBlue fg-white"><span class="title text-light" style="font-weight:bold">@project.Name</span></div>
+                        <div class="content fg-dark clear-float">
+                            <a href="@Url.Action("Project", "Project", new { projectId = project.Name })">
+                                <span class="mif-organization icon mif-4x"></span>
+                                <span style="font-size:medium;font-weight:bold;vertical-align:text-top">@project.Description</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    </div>
+</div>

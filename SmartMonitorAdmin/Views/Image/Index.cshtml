@@ -1,0 +1,28 @@
+﻿@model IEnumerable<string>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+    <a class="modal-trigger" data-title="New Image" href="@Url.Action("Add", "Image")"><i class='mif-plus mif-ani-vertical mif-ani-slow'></i>&nbsp;Add Image</a>
+</p>
+<hr />
+@foreach (var imagePath in Model) { 
+
+    <span class="image">
+        <a href="@imagePath">
+            <img src="@imagePath" height="32" width="32" />
+        </a>
+        @*<span class="description">@image.Description</span>*@
+    </span>
+}
+
+<script>
+    $('.modal-trigger').AjaxModal();
+</script>
+
+@*<span class="image">
+    <a href="images/@image.Path">
+        <img src="images/@image.Path" height="32" width="32" />
+    </a>*@

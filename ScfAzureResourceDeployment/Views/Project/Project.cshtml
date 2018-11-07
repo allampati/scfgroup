@@ -1,0 +1,182 @@
+﻿@model ScfAzureResourceDeployment.Models.Project
+
+@{
+    ViewBag.Title = "Project";
+    var regions = Scf.Net.Azure.ResourceManager.AzureAccount.Regions();
+    var noResourceGroups = (Model.ResourceGroups == null ? "disabled" : "");
+}
+
+<div class="app-bar darcula" data-role="appbar">
+    <ul class="app-bar-menu">
+        <li><a href="javascript:openResourceWizard()">Run Resource Wizard</a></li>
+        <li><a href="javascript:openResourceGroupDialog()">Add Resource Group</a></li>
+        <li><a href="javascript:verifyProject()">Verify Project for Deployment</a></li>
+        <li><a href="javascript:deployResourceGroup()">Deploy Resource Group</a></li>
+        <li><a href="javascript:deployProject()">Deploy Project</a></li>
+    </ul>
+</div>
+
+
+<div class="padding10" style="height:400px;overflow:visible">
+    <div class="accordion large-heading" data-role="accordion" data-close-any="true" style="overflow:visible">
+        <div class="frame" style="overflow:visible">
+            @if (Model.ResourceGroups != null)
+            {
+                foreach (var group in Model.ResourceGroups)
+                {
+                    <div class="heading" style="overflow:visible">
+
+                        @group.Name (@group.Region)
+                        <div class="place-right">
+                            <button class="button"><span class="mif-pencil fg-yellow"></span> Edit</button>
+                            <button class="button"><span class="mif-cancel fg-red"></span> Delete</button>
+                            <button class="button"><span class="mif-menu fg-green"></span> Add Resource</button>
+                        </div>
+                    </div>
+                    <div class="content" style="font-size:large;overflow:visible">
+                        <p>
+                            @Html.Raw(group.ToDisplayText())
+                        </p>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div data-role="dialog" id="dlgResourceGroup" data-close-button="true" data-with="600" style="background-color:#0094ff;padding-left:10px;padding-right:10px">
+    <h2>Create Resource Group</h2>
+    <div class="example">
+        <label>Group Name:</label>
+        <input type="text" id="txtGroupName" />
+        <select name="dropdown" id="comboRegionGroup">
+            @foreach (var region in regions)
+            {
+                <option>@region</option>
+            }
+        </select>
+        <button class="button" onclick="onCreateResourceGroupClick(document.getElementById('txtGroupName').value, document.getElementById('comboRegionGroup').value);"><span class="mif-checkmark"></span> OK</button>
+    </div>
+</div>
+
+<div data-role="dialog" id="dlgWizard" data-close-button="true" data-with="600" style="background-color:#0094ff;padding-left:10px;padding-right:10px">
+    <h1>Resource Wizard</h1>
+    <div class="example">
+        <div class="wizard2"
+             data-role="wizard2"
+             data-button-labels='{"help": "?", "prev": "<span class=\"mif-arrow-left\"></span>", "next": "<span class=\"mif-arrow-right\"></span>", "finish": "<span class=\"mif-checkmark\"></span>"}'>
+            <div class="step">
+                <div class="step-content">
+                    <form>
+                        <h2 class="no-margin-top">Choose or Create Resource Group</h2>
+                        <label class="input-control radio block">
+                            <input type="radio" name="r1" checked>
+                            <span class="check"></span>
+                            <span class="caption">Create New</span>
+                        </label>
+                        <input type="text" id="txtNewGroup" />
+
+                        <label class="input-control radio block">
+                            <input type="radio" name="r1">
+                            <span class="check"></span>
+                            <span class="caption">Select Existing</span>
+                        </label>
+                        <select name="dropdown" id="comboGroups">
+                            @if (Model.ResourceGroups != null)
+                            {
+                                foreach (var group in Model.ResourceGroups)
+                                {
+                                    <option>@group.Name</option>
+                                }
+                            }
+                            else
+                            {
+                                <option>No Resource Groups Exist</option>
+                            }
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <form>
+                        <h2 class="no-margin-top">Create Blob Storage Account</h2>
+                        <label class="input-control radio block">
+                            <input type="radio" name="r1" checked>
+                            <span class="check"></span>
+                            <span class="caption">Do not create this resource</span>
+                        </label>
+
+                        <label class="input-control radio block">
+                            <input type="radio" name="r1">
+                            <span class="check"></span>
+                            <span class="caption">Create Resource</span>
+                        </label>
+                        <input type="text" id="txtBlobStorage" />
+                        <select name="dropdown" id="comboRegionBlob">
+                            @foreach (var region in regions)
+                            {
+                                <option>@region</option>
+                            }
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openResourceWizard()
+    {
+        metroDialog.open('#dlgWizard');
+    }
+
+    function openResourceGroupDialog()
+    {
+        metroDialog.open('#dlgResourceGroup');
+    }
+
+    function openDetailsDialog()
+    {
+
+    }
+
+    function verifyProject()
+    {
+
+    }
+
+    function deployResourceGroup()
+    {
+
+    }
+
+    function deployProject()
+    {
+
+    }
+
+    function onCreateResourceGroupClick(name, region)
+    {
+        var projectName = '@Model.Name';
+
+        // Create Resource Group
+        metroDialog.close('#dlgResourceGroup');
+
+        $.ajax(
+            {
+                type: "GET",
+                url: "/Project/CreateResourceGroup",
+                data: { "projectName": projectName, "name": name, "region":region },
+                success: function (result) {
+                    $('#main_project_details').html(result);
+                },
+                error: function (ex) {
+                    // handle error
+                }
+            }); //ajax
+    }
+</script>
+

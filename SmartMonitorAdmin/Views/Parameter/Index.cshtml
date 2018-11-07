@@ -1,0 +1,92 @@
+﻿@model IEnumerable<SmartMonitorAdmin.Models.Parameter>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    <a class="modal-trigger" data-title="New Parameter" href="@Url.Action("Create", "Parameter")"><i class='mif-plus mif-ani-vertical mif-ani-slow'></i>&nbsp;Add Parameter</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Units)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogToDatabase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Serial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonitoringInterval)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonitoringIntervalType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alarms)
+        </th>
+        <th>Edit/Delete</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+           @Html.EnumDropDownListFor(modelItem => item.Type, "", new { @class = "form-control", disabled="disabled" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Units)
+        </td>
+        <td>
+            @Html.EnumDropDownListFor(modelItem => item.LogToDatabase, "", new { @class = "form-control", disabled = "disabled" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Serial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonitoringInterval)
+        </td>
+        <td>
+            @Html.EnumDropDownListFor(modelItem => item.MonitoringIntervalType, "", new { @class = "form-control", disabled = "disabled" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            <a class="modal-trigger" data-title="Alarms" href="@Url.Action("Alarms", "Parameter", new { id = item.Id })"><i class='mif-bell mif-2x'></i></a>
+        </td>
+        <td>
+            <a class="modal-trigger" data-title="Edit Parameter" href="@Url.Action("Edit", "Parameter", new { id = item.Id })"><i class='mif-pencil'></i></a>
+            <a class="modal-trigger" data-title="Delete Parameter" href="@Url.Action("Delete", "Parameter", new { id = item.Id })"><i class='mif-not'></i></a>
+        </td>
+    </tr>
+}
+
+</table>
+<script>
+    $('.modal-trigger').AjaxModal();
+    //$('.modal-trigger').AjaxModal({
+    //    modalWidth: '20%', //Width of the modal
+    //    overlayOpacity: 0.33, //Opacity of the modal background overlay
+    //    fadeInDuration: 30, //Duration of the fade in animation
+    //    fadeOutDuration: 30, //Duration of the fade out animation
+    //    closeButton: '&times;', //Text or html
+    //    dismissable: true, //Does clicking outside the modal close it?
+    //    showTitlebar: 'always', //'always', 'whenAvailable' and 'never'
+    //    caching: false //Cache the ajax requests
+    //});
+</script>

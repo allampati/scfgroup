@@ -1,0 +1,38 @@
+﻿@*@model SmartMonitorAdmin.Data.Image*@
+
+@{
+    ViewBag.Title = "Add";
+    Layout = null;
+}
+
+
+
+@using (Html.BeginForm("Save", "Image"))
+{
+    <table style="border-collapse: separate; border-spacing: 10px;">
+        <tr>
+            <td>Select Image File:</td>
+            <td>
+                <div class="input-control file" data-role="input">
+                    <input type="file">
+                    <button class="button"><span class="mif-folder"></span></button>
+                </div>
+            </td>
+        </tr>
+        @*<tr>
+            <td>Description:</td>
+            <td>
+                <input type="text" name="description" />
+            </td>
+        </tr>*@
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Upload" class="btn btn-default" />
+                <input type="button" value="Close" onclick="window.location.href='@Url.Action("Index", "Image" )';"  />
+            </td>
+        </tr>
+    </table>
+}
+
+
